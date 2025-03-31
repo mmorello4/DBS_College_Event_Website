@@ -34,7 +34,7 @@
             <button type="submit" class="login-button">Log in</button>
 
             <!-- Forgot Password -->
-            <p><a href="#" class="forgot-user-pass">Forgot username or password?</a></p>
+            <p><a href="forgot.php" class="forgot-user-pass">Forgot username or password?</a></p>
 
             <!-- Sign-up Link -->
             <p><a href="signup.php" class="signup-link">Not Registered? Sign Up Now</a></p>
