@@ -1,0 +1,91 @@
+/* forgot-style.css */
+
+/* Page Background */
+.forgot-background {
+    background-color: #e6bd45;
+    margin-left: 2;
+    margin-right: 2;
+    margin-top: 2;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+/* Header Section */
+.header-container {
+    background-color: #000;
+    height: 150px;
+    padding: 10px;
+    text-align: center;
+}
+.header-text {
+    font-family: Arial, sans-serif;
+    color: #e6bd45;
+    font-size: 46px;
+    padding-top: 15px;
+}
+
+/* Forgot Password Box */
+.forgot-container {
+    background-color: white;
+    padding: 25px;
+    margin: 150px auto;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    height: 350px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+.forgot-text {
+    color: black;
+    font-size: 34px;
+    padding-top: 5px;
+}
+
+/* Form Labels */
+label {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+/* Input Fields */
+.input-field {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Reset Button */
+.reset-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #e6bd45;
+    color: black;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+.reset-button:hover {
+    background-color: #e7b41b;
+}
+
+/* Login Link */
+.forgot-link {
+    display: block;
+    margin-top: 15px;
+    font-size: 14px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    text-align: left;
+}
+.forgot-link:hover {
+    text-decoration: underline;
+}
