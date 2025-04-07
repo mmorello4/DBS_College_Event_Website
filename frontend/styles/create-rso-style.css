@@ -1,0 +1,115 @@
+/* Gold Theme Styles */
+
+/* Background */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e6bd45; /* Gold background */
+    margin: 0;
+    padding: 0;
+}
+
+/* Container for the RSO Form */
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Header */
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+/* Form Labels */
+label {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+/* Input Fields */
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box; /* Ensures padding and border are included in width */
+}
+
+/* Date and Time input */
+input[type="date"], input[type="time"] {
+    width: 48%;
+}
+
+/* Phone and Email input */
+input[type="tel"], input[type="email"] {
+    width: 48%;
+}
+
+/* Flexbox for Date, Time, Phone, and Email to align side by side */
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.flex-container div {
+    flex: 1;
+    min-width: 48%; /* Prevents them from getting too small */
+}
+
+/* Description Textarea (full width and non-resizable) */
+textarea {
+    resize: none;
+    height: 120px; /* Fixed height for description */
+}
+
+/* Button */
+button {
+    background-color: #e6bd45; /* Gold color */
+    color: black;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+}
+
+button:hover {
+    background-color: #e7b41b; /* Darker gold on hover */
+}
+
+/* Error message */
+.error {
+    color: red;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* For smaller screen sizes, adjust form fields */
+@media (max-width: 600px) {
+    /* Stack the fields vertically on small screens */
+    .flex-container {
+        flex-direction: column;
+    }
+
+    .flex-container div {
+        min-width: 100%;
+    }
+
+    /* Ensure all inputs are full width */
+    input[type="date"], input[type="time"], input[type="tel"], input[type="email"] {
+        width: 100%;
+    }
+}

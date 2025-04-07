@@ -32,7 +32,7 @@
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     width: 400px;
-    height: 500px;
+    height: 700px;
     text-align: center;
     font-family: Arial, sans-serif;
 }
@@ -87,6 +87,26 @@ label {
 .signup-button:hover {
     background-color: #e7b41b;
 }
+
+/* Dropdown (Role) Style */
+select.input-field {
+    width: 100%;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+}
+
+/* Dropdown (Role) Focus State */
+select.input-field:focus {
+    border-color: #e6bd45;
+    outline: none;
+    box-shadow: 0 0 5px rgba(230, 189, 69, 0.6);
+}
+
 
 /* Login Link */
 .signup-link {

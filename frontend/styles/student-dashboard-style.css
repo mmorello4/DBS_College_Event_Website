@@ -1,0 +1,29 @@
+body {
+    background-color: #e6bd45;
+    font-family: Arial, sans-serif;
+}
+
+.search-bar {
+    margin-bottom: 30px;
+    display: flex;
+    gap: 10px;
+}
+
+.input-field {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.login-button {
+    background-color: black;
+    color: #e6bd45;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.login-button:hover {
+    background-color: #333;
+}
