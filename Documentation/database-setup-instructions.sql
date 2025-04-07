@@ -183,3 +183,14 @@ END;
 //
 
 DELIMITER ;
+
+
+-- inserts some universities into the university table
+INSERT INTO Universities (Name, Domain, Location, NumberOfStudents, PictureURL) VALUES
+('University of Central Florida', 'ucf.edu', 'Orlando, FL', 70000, 'https://www.ucf.edu/files/2023/03/ucf-campus.jpg'),
+('University of Florida', 'ufl.edu', 'Gainesville, FL', 55000, 'https://www.ufl.edu/assets/img/home/hero.jpg'),
+('Florida State University', 'fsu.edu', 'Tallahassee, FL', 43000, 'https://www.fsu.edu/images/homepage/fsu-campus.jpg'),
+('University of South Florida', 'usf.edu', 'Tampa, FL', 51000, 'https://www.usf.edu/_images/homepage/usf-campus.jpg'),
+('Massachusetts Institute of Technology', 'mit.edu', 'Cambridge, MA', 11500, 'https://mitadmissions.org/apply/mit-campus.jpg'),
+('Stanford University', 'stanford.edu', 'Stanford, CA', 17000, 'https://www.stanford.edu/sites/default/files/styles/hero_lg/public/media/2022-07/stanford-campus.jpg'),
+('Georgia Institute of Technology', 'gatech.edu', 'Atlanta, GA', 39000, 'https://www.gatech.edu/sites/default/files/gtcampus.jpg');

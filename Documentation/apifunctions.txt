@@ -1,0 +1,56 @@
+register.php:
+for student:
+{
+  "name": "Taylor Finch",
+  "email": "taylor.finch@ucf.edu",
+  "password": "Demo123!",
+  "university": "University of Central Florida"
+}
+
+for admin or superadmin:
+{
+  "name": "Admin Person",
+  "email": "admin@ucf.edu",
+  "password": "AdminPass123",
+  "university": "University of Central Florida",
+  "role": "Admin" // change this to "SuperAdmin" for super admin
+}
+
+return message-
+{
+    "message": "User registered",
+    "uid": 1
+}
+
+Note: role can be "Admin", "SuperAdmin". The standard itself for user is Student so it you want to send student in the role 
+for a student registering that shouldn't matter. When the role "Admin" or "SuperAdmin" it will populate the user table like normal
+but it will also add to the Admin or SuperAdmin Table respectively. 
+
+login.php:
+{
+  "email": "taylor.finch@ucf.edu",
+  "password": "Demo123!"
+}
+
+output message -
+{
+    "message": "Login successful",
+    "uid": 1,
+    "role": "Student",
+    "university_id": 8
+}
+
+Admin or super admin:
+{
+  "email": "admin@ucf.edu",
+  "password": "AdminPass123"
+}
+
+Output:
+{
+    "message": "Login successful",
+    "uid": 2,
+    "role": "Admin",
+    "university_id": 8
+}
+
