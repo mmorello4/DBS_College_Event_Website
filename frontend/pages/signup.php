@@ -8,7 +8,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
     $username = $_POST["username"];
     $password = password_hash($_POST["password"], PASSWORD_DEFAULT); // Secure password hashing
-    $role = $_POST["role"];
     $university = $_POST["university"];
 
     // Optional: Check if username or email already exists
@@ -21,8 +20,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<script>alert('Username or Email already exists');</script>";
     } else {
         // Insert new user
-        $stmt = $conn->prepare("INSERT INTO users (name, email, username, password, role, university) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssss", $name, $email, $username, $password, $role, $university);
+        $stmt = $conn->prepare("INSERT INTO users (name, email, username, password, university) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssss", $name, $email, $username, $password, $university);
         
         if ($stmt->execute()) {
             header("Location: login.php"); // ✅ Redirect to login page
@@ -79,14 +78,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="password" id="password" name="password" class="input-field" placeholder="Enter your password" required>
                 <span class="toggle-password" onclick="togglePassword()">👁</span>
             </div>
-
-            <!-- Role Input -->
-            <label for="role" class="login-label">Role</label>
-            <select id="role" name="role" class="input-field" required>
-                <option value="Student">Student</option>
-                <option value="Super Admin">Super Admin</option>
-                <option value="Admin">Admin</option>
-            </select>
 
             <!-- University Input -->
             <label for="university" class="login-label">University</label>
