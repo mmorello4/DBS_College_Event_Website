@@ -1,41 +1,4 @@
-<!-- signup.php -->
-<?php
-// Connect to your database (edit credentials as needed)
-$conn = new mysqli("localhost", "root", "", "rso_events");
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST["name"];
-    $email = $_POST["email"];
-    $username = $_POST["username"];
-    $password = password_hash($_POST["password"], PASSWORD_DEFAULT); // Secure password hashing
-    $university = $_POST["university"];
-
-    // Optional: Check if username or email already exists
-    $check = $conn->prepare("SELECT * FROM users WHERE email = ? OR username = ?");
-    $check->bind_param("ss", $email, $username);
-    $check->execute();
-    $result = $check->get_result();
-
-    if ($result->num_rows > 0) {
-        echo "<script>alert('Username or Email already exists');</script>";
-    } else {
-        // Insert new user
-        $stmt = $conn->prepare("INSERT INTO users (name, email, username, password, university) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssss", $name, $email, $username, $password, $university);
-        
-        if ($stmt->execute()) {
-            header("Location: login.php"); // ✅ Redirect to login page
-            exit();
-        } else {
-            echo "<script>alert('Error creating account');</script>";
-        }
-        $stmt->close();
-    }
-
-    $check->close();
-    $conn->close();
-}
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -87,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <button type="submit" class="signup-button">Sign Up</button>
 
             <!-- Login Link -->
-            <p><a href="login.php" class="signup-link">Already registered? Log in</a></p>
+            <p><a href="login-page.php" class="signup-link">Already registered? Log in</a></p>
         </form>
         <!-- End form tag -->
     </div>
