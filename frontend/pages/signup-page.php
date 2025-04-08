@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
     <link rel="stylesheet" href="../styles/signup-style.css">
-    <script src="../scripts/login-script.js"></script>
+    <script src="../scripts/signup-script.js"></script>
 </head>
 <body class="signup-background">
 
@@ -22,18 +22,14 @@
         <h2 class="signup-text">Sign Up</h2>
 
         <!-- Start form tag -->
-        <form action="signup.php" method="POST">
-            <!-- Name Input -->
+        <form id="signupForm">
+        <!-- Name Input -->
             <label for="name" class="login-label">Full Name</label>
             <input type="text" id="name" name="name" class="input-field" placeholder="Enter your full name" required>
 
             <!-- Email Input -->
             <label for="email" class="login-label">Email</label>
             <input type="email" id="email" name="email" class="input-field" placeholder="Enter your email" required>
-
-            <!-- Username Input -->
-            <label for="username" class="login-label">Username</label>
-            <input type="text" id="username" name="username" class="input-field" placeholder="Enter your username" required>
 
             <!-- Password Field -->
             <label for="password">Password</label>
@@ -54,6 +50,5 @@
         </form>
         <!-- End form tag -->
     </div>
-
 </body>
 </html>

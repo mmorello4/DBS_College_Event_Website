@@ -1,29 +1,172 @@
 body {
     background-color: #e6bd45;
     font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
-.search-bar {
-    margin-bottom: 30px;
-    display: flex;
-    gap: 10px;
+.header-container {
+    text-align: center;
+    padding: 20px;
 }
 
-.input-field {
-    flex: 1;
-    padding: 10px;
-    font-size: 16px;
-}
-
-.login-button {
-    background-color: black;
-    color: #e6bd45;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
+.header-text {
+    color: black;
+    font-size: 32px;
     font-weight: bold;
 }
 
-.login-button:hover {
+.container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.section {
+    margin-bottom: 30px;
+}
+
+.search-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.search-label {
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+}
+
+.input-field {
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+}
+
+.search-button, .clear-button {
+    padding: 8px 15px;
+    background-color: black;
+    color: #e6bd45;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+    width: 100px;
+}
+
+.search-button:hover, .clear-button:hover {
+    background-color: #333;
+}
+
+.search-results {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+}
+
+.search-result {
+    margin-bottom: 10px;
+}
+
+.search-result button {
+    padding: 5px 10px;
+    background-color: black;
+    color: #e6bd45;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.search-result button:hover {
+    background-color: #333;
+}
+
+.rso-section {
+    margin-bottom: 30px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.rso-section h3 {
+    margin-bottom: 15px;
+    font-size: 1.5em;
+}
+
+.event {
+    margin-bottom: 15px;
+}
+
+.contact-info {
+    font-style: italic;
+    color: #555;
+}
+
+@media (max-width: 600px) {
+    .search-bar {
+        flex-direction: column;
+    }
+
+    .input-field, .search-button, .clear-button {
+        width: 100%;
+    }
+}
+.join-button {
+    padding: 8px 16px;
+    background-color: black;
+    color: #e6bd45;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.join-button:disabled {
+    background-color: #d3d3d3;
+    cursor: not-allowed;
+}
+
+.create-rso-button {
+    padding: 10px 20px;
+    background-color: black;
+    color: #e6bd45;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.create-rso-button:hover {
+    background-color: #333;
+}
+
+.create-event-button {
+    padding: 10px 20px;
+    background-color: black;
+    color: #e6bd45;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.create-event-button:hover {
     background-color: #333;
 }

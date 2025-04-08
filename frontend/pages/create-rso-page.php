@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,11 +7,11 @@
     <link rel="stylesheet" href="../styles/create-rso-style.css"> <!-- for gold theme -->
 </head>
 <body class="mainpage-background">
-    <div class="header-container">
-        <h1 class="header-text">Create a New RSO</h1>
-    </div>
-
     <div class="container">
+        <div class="header-container">
+            <h1 class="header-text">Create a New RSO</h1>
+        </div>
+
         <!-- RSO Creation Form -->
         <form method="post" action="create-rso.php">
             <div>

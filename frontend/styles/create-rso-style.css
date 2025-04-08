@@ -1,6 +1,4 @@
 /* Gold Theme Styles */
-
-/* Background */
 body {
     font-family: Arial, sans-serif;
     background-color: #e6bd45; /* Gold background */
@@ -8,7 +6,6 @@ body {
     padding: 0;
 }
 
-/* Container for the RSO Form */
 .container {
     max-width: 800px;
     margin: 50px auto;
@@ -18,23 +15,29 @@ body {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
 }
 
-/* Header */
-h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
+.header-container {
     text-align: center;
+    margin-bottom: 0px; /* Space between header and form */
+}
+
+.header-text {
+    font-size: 28px; /* Larger font size */
+    margin: 0;
     color: #333;
 }
 
-/* Form Labels */
-label {
-    display: block;
-    font-size: 18px;
-    margin-bottom: 5px;
-    text-align: left;
+/* General Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
 }
 
-/* Input Fields */
+label {
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: #333;
+}
+
 input, select, textarea {
     width: 100%;
     padding: 12px;
@@ -45,36 +48,13 @@ input, select, textarea {
     box-sizing: border-box; /* Ensures padding and border are included in width */
 }
 
-/* Date and Time input */
-input[type="date"], input[type="time"] {
-    width: 48%;
-}
-
-/* Phone and Email input */
-input[type="tel"], input[type="email"] {
-    width: 48%;
-}
-
-/* Flexbox for Date, Time, Phone, and Email to align side by side */
-.flex-container {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-
-.flex-container div {
-    flex: 1;
-    min-width: 48%; /* Prevents them from getting too small */
-}
-
-/* Description Textarea (full width and non-resizable) */
+/* Adjust the size of the textarea for description */
 textarea {
-    resize: none;
-    height: 120px; /* Fixed height for description */
+    resize: none; /* Prevent resizing */
+    height: 200px; /* Fixed height */
 }
 
-/* Button */
+/* Button Styling */
 button {
     background-color: #e6bd45; /* Gold color */
     color: black;
@@ -84,32 +64,27 @@ button {
     cursor: pointer;
     width: 100%;
     font-size: 18px;
+    margin-top: 15px;
 }
 
 button:hover {
     background-color: #e7b41b; /* Darker gold on hover */
 }
 
-/* Error message */
+/* Error Message Styling */
 .error {
     color: red;
     margin-bottom: 20px;
     text-align: center;
 }
 
-/* For smaller screen sizes, adjust form fields */
+/* Responsive Design */
 @media (max-width: 600px) {
-    /* Stack the fields vertically on small screens */
     .flex-container {
         flex-direction: column;
     }
 
     .flex-container div {
         min-width: 100%;
-    }
-
-    /* Ensure all inputs are full width */
-    input[type="date"], input[type="time"], input[type="tel"], input[type="email"] {
-        width: 100%;
     }
 }

@@ -1,41 +1,41 @@
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("loginForm");
 
-// JavaScript to Toggle Password Visibility 
-function togglePassword() 
-{
-    const passwordField = document.getElementById('password');
-    const passwordIcon = document.querySelector('.toggle-password');
+    form.addEventListener("submit", async function (e) {
+        e.preventDefault(); // Stop normal form submission
+  
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
 
-    if (passwordField.type === 'password') {
-        passwordField.type = 'text';
-        passwordIcon.textContent = 'X'; // Change to "hide" icon
-    } else {
-        passwordField.type = 'password';
-        passwordIcon.textContent = '👁'; // Change back to "show" icon
-    }
-}
+        const data = {
+            email: email,
+            password: password
+        };
 
-// Listen for log in
-document.getElementById("loginForm").addEventListener("submit", function(e) {
-    e.preventDefault(); // Prevent default form submission
-    
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
-
-    const formData = new FormData();
-    formData.append('username', username);
-    formData.append('password', password);
-
-    fetch('login.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            window.location.href = 'dashboard.php'; // Redirect to dashboard
-        } else {
-            alert('Login failed: ' + data.message);
-        }
-    })
-    .catch(error => console.error('Error:', error));
+        fetch('../../backend/login.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json' // Send JSON content type
+            },
+            body: JSON.stringify(data) // Convert the data to a JSON string
+        })
+        .then(response => {
+            if (!response.ok) {
+                // If the response is not OK, show the error message
+                return response.text().then(text => { throw new Error(text); });
+            }
+            return response.json(); // Parse JSON response
+        })
+        .then(data => {
+            if (data.success) {
+                window.location.href = 'student-dashboard.php'; // Redirect to dashboard
+            } else {
+                alert('Login failed: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred: ' + error.message); // Display an error message
+        });
+    });
 });

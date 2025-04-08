@@ -20,10 +20,10 @@
         <h2 class="login-text">Log in</h2>
 
         <?php if (!empty($error)) echo "<p style='color:red;'>$error</p>"; ?>
-
-        <form action="login.php" method="POST">
-            <label for="username" class="login-label">Username</label>
-            <input type="text" id="username" name="username" class="input-field" required>
+        
+        <form id="loginForm">
+            <label for="email" class="login-label">Email</label>
+            <input type="email" id="email" name="email" class="input-field" required>
 
             <label for="password" class="login-label">Password</label>
             <div class="password-container">
@@ -34,6 +34,7 @@
             <button type="submit" class="login-button">Log in</button>
             <p><a href="signup-page.php" class="signup-link">Not Registered? Sign Up</a></p>
         </form>
+
     </div>
 </body>
 </html>
