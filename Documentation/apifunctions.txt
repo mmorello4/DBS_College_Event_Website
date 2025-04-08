@@ -54,3 +54,45 @@ Output:
     "university_id": 8
 }
 
+create_rso.php:
+{
+    "name": "Future Lawyers",
+    "description": "A student-led initiative promoting innovation and technology.",
+    "university_id": 1,
+    "admin_email": "steven.smith@ucf.edu",
+    "member_emails": [
+        "taylor.finch@ucf.edu",
+        "barry.allen@ucf.edu",
+        "jerry.springer@ucf.edu",
+        "larry.david@ucf.edu"
+    ]
+}
+
+Output:
+{
+    "success": true,
+    "message": "RSO created and members added successfully."
+}
+
+join_rso.php:
+{
+  "user_id": 10,
+  "rso_id": 3
+}
+
+Output:
+{
+  "success": true,
+  "message": "Successfully joined the RSO."
+}
+
+join_rso.php
+{
+  "uid": 6,
+  "rsoid": 8
+}
+Output-
+{
+    "success": true,
+    "message": "Successfully joined the RSO."
+}

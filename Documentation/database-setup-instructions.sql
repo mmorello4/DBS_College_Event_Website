@@ -50,29 +50,6 @@ CREATE TABLE RSO_Members (
     FOREIGN KEY (RSOID) REFERENCES RSOs(RSOID)
 );
 
--- [ADDED] Trigger: RSO must have at least 5 members
-DELIMITER //
-
-CREATE TRIGGER CheckRSOMemberCount
-BEFORE INSERT ON RSO_Members
-FOR EACH ROW
-BEGIN
-    DECLARE member_count INT;
-
-    SELECT COUNT(*) INTO member_count
-    FROM RSO_Members
-    WHERE RSOID = NEW.RSOID;
-
-    IF member_count < 4 THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'An RSO must have at least 5 members to be activated.';
-    END IF;
-END;
-//
-
-DELIMITER ;
-
-
 -- Locations Table
 CREATE TABLE Locations (
     LocationID INT AUTO_INCREMENT PRIMARY KEY,
