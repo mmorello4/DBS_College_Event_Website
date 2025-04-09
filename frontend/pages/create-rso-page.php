@@ -64,7 +64,6 @@
                 member_emails: member_emails
             };
 
-
             try {
                 const response = await fetch('../../backend/create_rso.php', {
                     method: 'POST',
@@ -81,6 +80,11 @@
                     messageBox.style.color = 'green';
                     messageBox.textContent = result.message;
                     document.getElementById('create-rso-form').reset();
+
+                    // Redirect to the dashboard after successful creation
+                    setTimeout(() => {
+                        window.location.href = '../pages/student-dashboard.php';  // Adjust the URL to your dashboard page
+                    }, 2000);  // Delay for 2 seconds to show the success message
                 } else {
                     messageBox.style.color = 'red';
                     messageBox.textContent = result.message;

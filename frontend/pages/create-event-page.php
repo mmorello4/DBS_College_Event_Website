@@ -93,7 +93,7 @@
 
             const data = {
                 Event_Name: event_name,
-                Event_Description: '',  // You can add a description field if needed
+                Event_Description: '',
                 Type: event_type,
                 RSO: rso_name,
                 Date: event_date,
@@ -102,8 +102,7 @@
                 End_Time: event_end_time,
                 Location: event_location,
                 Contact_Phone: contact_phone,
-                Contact_Email: contact_email,
-                User_ID: 2 // Replace with the logged-in user's ID
+                Contact_Email: contact_email
             };
 
             try {
@@ -122,6 +121,12 @@
                     messageBox.style.color = 'green';
                     messageBox.textContent = result.message;
                     document.getElementById('create-event-form').reset();
+
+                    // Redirect to the dashboard after successful creation
+                    setTimeout(() => {
+                        // Redirect to the student dashboard
+                        window.location.href = '../pages/student-dashboard.php';
+                    }, 2000);  // Delay for 2 seconds to show the success message
                 } else {
                     messageBox.style.color = 'red';
                     messageBox.textContent = result.message;

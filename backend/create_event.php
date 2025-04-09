@@ -3,9 +3,9 @@ header("Content-Type: application/json");
 
 include 'db.php';
 
+// Extract the data from the POST body
 $data = json_decode(file_get_contents("php://input"), true);
 
-// Extract the data from the POST body
 $title = $data["Event_Name"];
 $description = $data["Event_Description"];
 $type = $data["Type"];
@@ -15,7 +15,21 @@ $time = $data["Time"];
 $location_desc = $data["Location"];
 $contact_phone = $data["Contact_Phone"];
 $contact_email = $data["Contact_Email"];
-$created_by = $data["User_ID"];
+
+// 1. Query User_ID from Users table based on contact_email
+$stmt = $conn->prepare("SELECT UID FROM Users WHERE Email = ?");
+$stmt->bind_param("s", $contact_email);
+$stmt->execute();
+$stmt->bind_result($user_id);
+$stmt->fetch();
+$stmt->close();
+
+if (!$user_id) {
+    echo json_encode(["success" => false, "message" => "User not found with the provided email."]);
+    exit();
+}
+
+$created_by = $user_id; // Set the user_id dynamically from the email
 
 // Combine date and time to MySQL DATETIME
 $event_time = date("Y-m-d H:i:s", strtotime($date . " " . $time));
@@ -29,7 +43,7 @@ try {
         throw new Exception("End time must be after start time.");
     }
 
-    // 1. Handle location: insert if it doesn't exist
+    // 2. Handle location: insert if it doesn't exist
     $stmt = $conn->prepare("SELECT LocationID FROM Locations WHERE Description = ?");
     $stmt->bind_param("s", $location_desc);
     $stmt->execute();
@@ -44,7 +58,7 @@ try {
         $stmt->close();
     }
 
-    // 2. Permission check for event type
+    // 3. Permission check for event type
     if ($type === "RSO") {
         if (!$rso_name) throw new Exception("RSO name is required for RSO events.");
         $stmt = $conn->prepare("SELECT RSOID, CreatedBy FROM RSOs WHERE Name = ?");
@@ -67,7 +81,7 @@ try {
         $stmt->close();
     }
 
-    // 3. Insert event into Events table
+    // 4. Insert event into Events table
     $stmt = $conn->prepare("INSERT INTO Events (Title, Description, EventTime, EndTime, LocationID, ContactPhone, ContactEmail, CreatedBy, CategoryID)
                             VALUES (?, ?, ?, ?, ?, ?, ?, ?, NULL)");
     $stmt->bind_param("ssssissi", $title, $description, $event_time, $end_time, $location_id, $contact_phone, $contact_email, $created_by);
@@ -75,7 +89,7 @@ try {
     $event_id = $stmt->insert_id;
     $stmt->close();
 
-    // 4. Insert into subtype table (RSO, Private, Public)
+    // 5. Insert into subtype table (RSO, Private, Public)
     if ($type === "RSO") {
         $stmt = $conn->prepare("INSERT INTO RSO_Events (EventID, RSOID) VALUES (?, ?)");
         $stmt->bind_param("ii", $event_id, $rso_id);
@@ -100,6 +114,8 @@ try {
     }
 
     $conn->commit();
+    // Send success response with a redirect URL for the frontend
+// Send success response without redirect_url for frontend handling
     echo json_encode(["success" => true, "message" => "Event created successfully."]);
 } catch (Exception $e) {
     $conn->rollback();
