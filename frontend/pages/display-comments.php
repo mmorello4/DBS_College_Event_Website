@@ -32,6 +32,12 @@ $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 'null';
             <textarea id="comment-input" class="comment-input" placeholder="Write your comment..."></textarea>
             <button class="add-comment-button" onclick="addComment()">Add Comment</button>
         </div>
+
+        <!-- Back to Dashboard Button -->
+        <div style="text-align: center; margin-top: 20px;">
+            <button class="back-button" onclick="window.location.href='student-dashboard.php'">← Back to Dashboard</button>
+        </div>
+
     </div>
 
     <script>

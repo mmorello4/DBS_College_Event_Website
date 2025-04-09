@@ -89,6 +89,7 @@ td button:hover {
     cursor: pointer;
     font-weight: bold;
     border-radius: 5px;
+    width: 100%;
 }
 
 .create-event-button:hover {
@@ -116,80 +117,4 @@ td button:hover {
 
 .logout-button:hover {
     background-color: #d32f2f;
-}
-
-
-/* Form styling for Create University section */
-#create-university-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 20px;
-}
-
-#create-university-form input[type="text"] {
-    padding: 12px;
-    font-size: 16px;
-    border: 2px solid #ccc;
-    border-radius: 5px;
-    width: 100%;
-}
-
-#create-university-form button {
-    padding: 12px;
-    font-size: 16px;
-    font-weight: bold;
-    background-color: black;
-    color: #e6bd45;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 200px;
-}
-
-#create-university-form button:hover {
-    background-color: #333;
-}
-/* Form field styling */
-#create-university-form input[type="text"],
-#create-university-form input[type="number"] {
-    padding: 12px;
-    font-size: 16px;
-    border: 2px solid #ccc;
-    border-radius: 5px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-/* Submit button for university form */
-#create-university-form button {
-    padding: 12px;
-    font-size: 16px;
-    font-weight: bold;
-    background-color: black;
-    color: #e6bd45;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
-}
-
-#create-university-form button:hover {
-    background-color: #333;
-}
-
-/* Section spacing for the form fields */
-#create-university-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 20px;
-}
-
-/* Optional image preview */
-#university-picture-preview {
-    max-width: 100%;
-    height: auto;
-    margin-top: 10px;
-    border-radius: 5px;
 }

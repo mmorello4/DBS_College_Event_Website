@@ -148,3 +148,18 @@ body {
     background-color: #d32f2f;
     color: white;
 }
+
+.back-button {
+    padding: 10px 20px;
+    background-color: black;
+    color: #e6bd45;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.back-button:hover {
+    background-color: #333;
+}

@@ -7,8 +7,8 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-$user_id = $_SESSION['user_id'];  // Retrieve user ID from session
-$user_role = $_SESSION['role'];  // Retrieve user role from session
+$user_id   = $_SESSION['user_id'];  // Retrieve user ID from session
+$user_role = $_SESSION['role'];     // Retrieve user role from session
 ?>
 
 <!DOCTYPE html>
@@ -16,15 +16,18 @@ $user_role = $_SESSION['role'];  // Retrieve user role from session
 <head>
     <meta charset="UTF-8">
     <title>Create RSO</title>
-    <link rel="stylesheet" href="../styles/student-dashboard-style.css">
-    <link rel="stylesheet" href="../styles/create-rso-style.css"> <!-- for gold theme -->
+    <!-- Link to the gold-themed stylesheet (adjust the path as needed) -->
+    <link rel="stylesheet" href="../styles/create-rso-style.css">
 </head>
 <body class="mainpage-background">
-    <div class="container">
-        <div class="header-container">
-            <h1 class="header-text">Create a New RSO</h1>
-        </div>
+    <!-- Header container with title and back button -->
+    <div class="header-container">
+        <h1 class="header-text">Create a New RSO</h1>
+        <button class="back-button" onclick="window.location.href='student-dashboard.php'">Back to Dashboard</button>
+    </div>
 
+    <!-- Main container for the form -->
+    <div class="container">
         <!-- RSO Creation Form -->
         <form id="create-rso-form">
             <div>
@@ -34,7 +37,7 @@ $user_role = $_SESSION['role'];  // Retrieve user role from session
 
             <div>
                 <label for="rso_description">RSO Description</label>
-                <textarea name="rso_description" id="rso_description" rows="4" required></textarea>
+                <textarea name="rso_description" id="rso_description" required></textarea>
             </div>
 
             <div>
@@ -52,7 +55,7 @@ $user_role = $_SESSION['role'];  // Retrieve user role from session
                 <input type="text" name="members" id="members" placeholder="email1@domain.com, email2@domain.com" required>
             </div>
 
-            <button type="submit" class="login-button">Create RSO</button>
+            <button type="submit" class="btn">Create RSO</button>
         </form>
 
         <div id="response-message" style="margin-top: 15px; font-weight: bold;"></div>
@@ -67,12 +70,14 @@ $user_role = $_SESSION['role'];  // Retrieve user role from session
             const university_name = document.getElementById('university_name').value;
             const admin_email = document.getElementById('admin_email').value;
             const membersRaw = document.getElementById('members').value;
-            const member_emails = membersRaw.split(',').map(email => email.trim()).filter(email => email !== '');
+            const member_emails = membersRaw.split(',')
+                                            .map(email => email.trim())
+                                            .filter(email => email !== '');
 
             const data = {
                 name: rso_name,
                 description: rso_description,
-                university_name: university_name, // <-- send name, not id
+                university_name: university_name, // sending name, not id
                 admin_email: admin_email,
                 member_emails: member_emails
             };
@@ -80,9 +85,7 @@ $user_role = $_SESSION['role'];  // Retrieve user role from session
             try {
                 const response = await fetch('../../backend/create_rso.php', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
                 });
 
@@ -94,10 +97,10 @@ $user_role = $_SESSION['role'];  // Retrieve user role from session
                     messageBox.textContent = result.message;
                     document.getElementById('create-rso-form').reset();
 
-                    // Redirect to the dashboard after successful creation
+                    // Redirect to the dashboard after 2 seconds
                     setTimeout(() => {
-                        window.location.href = '../pages/student-dashboard.php';  // Adjust the URL to your dashboard page
-                    }, 2000);  // Delay for 2 seconds to show the success message
+                        window.location.href = '../pages/student-dashboard.php';
+                    }, 2000);
                 } else {
                     messageBox.style.color = 'red';
                     messageBox.textContent = result.message;

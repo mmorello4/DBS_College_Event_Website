@@ -49,18 +49,15 @@
             }
         }
 
-        // Login AJAX function
         function loginUser() {
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
 
-            // Prepare data for sending
             const loginData = {
                 email: email,
                 password: password
             };
 
-            // Make the AJAX request
             fetch('../../backend/login.php', {
                 method: 'POST',
                 headers: {
@@ -71,25 +68,27 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // On success, save user data in localStorage (or sessionStorage)
                     localStorage.setItem('user_id', data.uid);
                     localStorage.setItem('role', data.role);
                     localStorage.setItem('university_id', data.university_id);
 
-                    // Redirect to the dashboard
-                    window.location.href = 'student-dashboard.php';  // Or redirect based on role
+                    // Redirect based on role
+                    if (data.role === 'SuperAdmin') {
+                        window.location.href = 'superadmin-dashboard.php';
+                    } else {
+                        window.location.href = 'student-dashboard.php';
+                    }
                 } else {
-                    // Display error message if login failed
                     document.getElementById('error-message').textContent = data.error;
                     document.getElementById('error-message').style.display = 'block';
                 }
             })
             .catch(error => {
-                // Handle any errors from the AJAX request
                 document.getElementById('error-message').textContent = "An error occurred. Please try again.";
                 document.getElementById('error-message').style.display = 'block';
             });
         }
+
     </script>
 
 </body>

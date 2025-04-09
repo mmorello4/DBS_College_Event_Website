@@ -29,18 +29,11 @@ $user_id = $_SESSION['user_id'];
             <div id="approval-events"></div>
         </div>
 
-        <!-- Create University Section -->
+        <!-- Create University Redirect -->
         <div class="section">
-            <h2>Create University</h2>
-            <form id="create-university-form">
-                <input type="text" id="university-name" placeholder="University Name" required>
-                <input type="text" id="university-domain" placeholder="Domain (e.g., university.edu)" required>
-                <input type="text" id="university-location" placeholder="Location" required>
-                <input type="number" id="university-students" placeholder="Number of Students">
-                <input type="text" id="university-picture" placeholder="Picture URL (optional)">
-                <button type="submit">Create</button>
-            </form>
-
+            <button class="create-event-button" onclick="window.location.href='create-university-page.php'">
+                Create New University
+            </button>
         </div>
     </div>
 
@@ -50,18 +43,14 @@ $user_id = $_SESSION['user_id'];
         async function fetchEventsNeedingApproval() {
             const res = await fetch('../../backend/show_approvals.php', {
                 method: 'POST',
-                headers: {'Content-Type': 'application/json'},
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ uid: userId })
             });
             const data = await res.json();
-            if (data.success) {
-                const container = document.getElementById('approval-events');
-                container.innerHTML = '';
-                if (data.events.length === 0) {
-                    container.innerHTML = "<p class='no-content-message'>No pending public events.</p>";
-                    return;
-                }
+            const container = document.getElementById('approval-events');
+            container.innerHTML = '';
 
+            if (data.success && data.events.length > 0) {
                 const table = document.createElement('table');
                 table.innerHTML = `
                     <thead>
@@ -88,55 +77,29 @@ $user_id = $_SESSION['user_id'];
                     </tbody>
                 `;
                 container.appendChild(table);
+            } else {
+                container.innerHTML = "<p class='no-content-message'>No pending public events.</p>";
             }
         }
 
         async function approveEvent(eventId) {
             const res = await fetch('../../backend/approve_event.php', {
                 method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ event_id: eventId })
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    uid: userId,         // ✅ Include UID for superadmin check
+                    event_id: eventId    // Event to approve
+                })
             });
+
             const result = await res.json();
             if (result.success) {
                 alert('Event approved!');
-                fetchEventsNeedingApproval();
+                fetchEventsNeedingApproval(); // Refresh the list
             } else {
                 alert('Approval failed: ' + result.message);
             }
         }
-
-        document.getElementById("create-university-form").addEventListener("submit", async (e) => {
-            e.preventDefault();
-
-            const name = document.getElementById("university-name").value;
-            const domain = document.getElementById("university-domain").value;
-            const location = document.getElementById("university-location").value;
-            const number_of_students = document.getElementById("university-students").value;
-            const picture_url = document.getElementById("university-picture").value;
-
-            const res = await fetch('../../backend/create_university.php', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    uid: userId,
-                    name,
-                    domain,
-                    location,
-                    number_of_students,
-                    picture_url
-                })
-            });
-
-            const data = await res.json();
-            if (data.success) {
-                alert("University created!");
-                e.target.reset();
-            } else {
-                alert("Error: " + data.message);
-            }
-        });
-
 
         window.onload = fetchEventsNeedingApproval;
     </script>
