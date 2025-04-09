@@ -174,7 +174,7 @@ show_comments.php:
 Note: Put a button where you used to have join event for showing the comments to take to a comments page with a back button. 
 This will return info for the comments. the comment id, uid of person who made the comment, comment text, and the timestamp. 
 Use the comment id and uid for edit and delete comment. You can probably show buttons for edit and delete only if the 
-uid of the comment matches the person who is logged in. 
+uid of the comment matches the person who is logged in. Get the name for the comment from the uid of that comment. 
 
 {
   "event_id": 3 (id of event you are looking at the comments for)
