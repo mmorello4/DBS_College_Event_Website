@@ -169,3 +169,132 @@ Output-
     }
   ]
 }
+
+show_comments.php:
+Note: Put a button where you used to have join event for showing the comments to take to a comments page with a back button. 
+This will return info for the comments. the comment id, uid of person who made the comment, comment text, and the timestamp. 
+Use the comment id and uid for edit and delete comment. You can probably show buttons for edit and delete only if the 
+uid of the comment matches the person who is logged in. Get the name for the comment from the uid of that comment. 
+After doing a edit comment or delete comment reload the comments again by running show comment so it updates for the user
+
+{
+  "event_id": 3 (id of event you are looking at the comments for)
+}
+Output-
+{
+    "success": true,
+    "comments": [
+        {
+            "CommentID": 1,
+            "UID": 2,
+            "CommentText": "Excited for this event! Hope to meet fellow innovators.",
+            "Timestamp": "2025-04-09 02:19:00"
+        },
+        {
+            "CommentID": 2,
+            "UID": 2,
+            "CommentText": "Excited for this event! Hope to meet fellow innovators.",
+            "Timestamp": "2025-04-09 02:19:05"
+        }
+    ]
+}
+
+add_comment.php:
+{
+  "uid": 2, (user id of person logged in)
+  "event_id": 3, (event the comment is being made in)
+  "comment_text": "Excited for this event! Hope to meet fellow innovators."
+}
+Output-
+{
+    "success": true,
+    "message": "Comment added successfully."
+}
+
+edit_comment.php: edits a comment. use the comment id and user id of the person who is logged in. It is going to compare it
+to the user id of the person who made the comment.
+{
+  "comment_id": 1,
+  "uid": 2,
+  "comment_text": "Can't wait to network with everyone!"
+}
+Output-
+{
+    "success": true,
+    "message": "Comment updated."
+}
+
+delete_comment.php: removes from comment table. use the comment id and user id of the person logged in. It is going to compare it
+to the user id of the person who made the comment.
+{
+  "comment_id": 1,
+  "uid": 2
+}
+Output-
+{
+    "success": true,
+    "message": "Comment deleted."
+}
+
+
+show_approvals.php: Takes in the user id of the person who is logged in. Checks that they are in the super admin table 
+and then returns the events that need to be approved. I think you can put buttons next to each one of them that will activate
+approve_event to approve them. Then reload the approval events with show_approvals.php again. 
+{ "uid": 8 }
+Output-
+{
+    "success": true,
+    "events": [
+        {
+            "EventID": "3",
+            "Title": "Innovation Kickoff",
+            "Description": "A student-led initiative promoting innovation and technology.",
+            "EventTime": "2025-04-20 16:02:00",
+            "EndTime": "0000-00-00 00:00:00",
+            "ContactPhone": "(407) 123-4567",
+            "ContactEmail": "taylor.finch@ucf.edu",
+            "Location": "Engineering Hall, Room 102"
+        },
+        {
+            "EventID": "14",
+            "Title": "Tech Talk",
+            "Description": "AI and the future",
+            "EventTime": "2025-04-24 19:30:00",
+            "EndTime": "2025-04-24 21:00:00",
+            "ContactPhone": "(555) 123-4567",
+            "ContactEmail": "taylor.finch@ucf.edu",
+            "Location": "Engineering Hall 102"
+        }
+    ]
+}
+
+approve_event.php: Takes the user id of the person logged in, makes sure they are a superadmin, takes the event id (get from show approvals)
+Uses that to find the event in public events table and approves it. 
+{
+  "uid": 8,
+  "event_id": 3
+}
+
+Output-
+{
+    "success": true,
+    "message": "Event approved."
+}
+
+create_university.php: user id is the user id of the person logged in. It checks that the person logged in is a superadmin.
+The other's can be text fields the superadmin enters to add a university to the universities table. It also verifies if the 
+domain has .edu in it 
+{
+  "uid": 8,
+  "name": "Northern Tech",
+  "domain": "ntech.edu",
+  "location": "Denver, CO",
+  "number_of_students": 12000,
+  "picture_url": "https://example.com/ntech-campus.jpg"
+}
+
+Output-
+{
+    "success": true,
+    "message": "University created successfully."
+}
