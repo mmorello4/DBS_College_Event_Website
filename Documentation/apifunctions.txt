@@ -147,3 +147,25 @@ Output:
         "rso_name": "Future Innovators"
     }
 ]
+
+get_rsos.php:
+{
+  "uid": 1, (user id)
+  "search": "inn" (search string)
+}
+Output-
+{
+  "success": true,
+  "rsos": [
+    {
+      "rsoid": 2,
+      "name": "Future Innovators",
+      "description": "A student-led initiative promoting innovation and technology."
+    },
+    {
+      "rsoid": 5,
+      "name": "Innovation Hub",
+      "description": "Exploring tech frontiers and creative design."
+    }
+  ]
+}
