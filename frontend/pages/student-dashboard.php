@@ -154,10 +154,16 @@ $user_role = $_SESSION['role'];
                         <td>${event.description}</td>
                         <td>${event.event_time} to ${event.end_time}</td>
                         <td>${event.location}</td>
+                        <td><button onclick="showComments(${event.event_id})">Show Comments</button></td>
                     `;
+
                     eventContainer.appendChild(eventRow);
                 });
             }
+        }
+        
+        function showComments(eventId) {
+            window.location.href = `event-comments-page.php?event_id=${eventId}`;
         }
 
         function showCreateEventButton() {
@@ -211,16 +217,18 @@ $user_role = $_SESSION['role'];
                 <button onclick="changeEventTab('rso')">RSO Events</button>
             </div>
             <table id="events-table">
-                <thead>
+            <thead>
                     <tr>
                         <th>Event Name</th>
                         <th>Description</th>
                         <th>Date & Time</th>
                         <th>Location</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody id="events-table-body"></tbody>
             </table>
+
             <div id="create-event-button-container"></div>
         </div>
     </div>
