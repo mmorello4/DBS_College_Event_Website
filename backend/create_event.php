@@ -18,10 +18,17 @@ $created_by = $data["User_ID"];
 
 // Combine date and time to MySQL DATETIME
 $event_time = date("Y-m-d H:i:s", strtotime($date . " " . $time));
+$end_time = date("Y-m-d H:i:s", strtotime($data["End_Date"] . " " . $data["End_Time"]));
+
 
 $conn->begin_transaction();
 
 try {
+    // Check that end time is after start time
+    if (strtotime($end_time) <= strtotime($event_time)) {
+        throw new Exception("End time must be after start time.");
+    }
+
     // 1. Handle location: insert if it doesn't exist
     $stmt = $conn->prepare("SELECT LocationID FROM Locations WHERE Description = ?");
     $stmt->bind_param("s", $location_desc);
@@ -62,10 +69,10 @@ try {
 
     // 3. Insert event into Events table
     $stmt = $conn->prepare("
-        INSERT INTO Events (Title, Description, EventTime, LocationID, ContactPhone, ContactEmail, CreatedBy, CategoryID)
-        VALUES (?, ?, ?, ?, ?, ?, ?, NULL)
+        INSERT INTO Events (Title, Description, EventTime, EndTime, LocationID, ContactPhone, ContactEmail, CreatedBy, CategoryID)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, NULL)
     ");
-    $stmt->bind_param("sssissi", $title, $description, $event_time, $location_id, $contact_phone, $contact_email, $created_by);
+    $stmt->bind_param("ssssissi", $title, $description, $event_time, $end_time, $location_id, $contact_phone, $contact_email, $created_by);
     $stmt->execute();
     $event_id = $stmt->insert_id;
     $stmt->close();

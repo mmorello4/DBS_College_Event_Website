@@ -96,3 +96,24 @@ Output-
     "success": true,
     "message": "Successfully joined the RSO."
 }
+
+create_event.php:
+{
+  "Event_Name": "Tech Talk",
+  "Event_Description": "AI and the future",
+  "Type": "RSO",
+  "RSO": "Future Innovators",
+  "Date": "2025-04-23",
+  "Time": "7:30PM",
+  "End_Date": "2025-04-23",
+  "End_Time": "9:00 PM",
+  "Location": "Engineering Hall 102",
+  "Contact_Phone": "(555) 123-4567",
+  "Contact_Email": "taylor.finch@ucf.edu",
+  "User_ID": 1
+}
+{
+    "success": true,
+    "message": "Event created successfully."
+}
+- Make sure to show the user the error if success was false. The message will say the error
