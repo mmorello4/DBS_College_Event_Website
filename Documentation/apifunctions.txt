@@ -235,3 +235,66 @@ Output-
     "success": true,
     "message": "Comment deleted."
 }
+
+
+show_approvals.php: Takes in the user id of the person who is logged in. Checks that they are in the super admin table 
+and then returns the events that need to be approved. I think you can put buttons next to each one of them that will activate
+approve_event to approve them. Then reload the approval events with show_approvals.php again. 
+{ "uid": 8 }
+Output-
+{
+    "success": true,
+    "events": [
+        {
+            "EventID": "3",
+            "Title": "Innovation Kickoff",
+            "Description": "A student-led initiative promoting innovation and technology.",
+            "EventTime": "2025-04-20 16:02:00",
+            "EndTime": "0000-00-00 00:00:00",
+            "ContactPhone": "(407) 123-4567",
+            "ContactEmail": "taylor.finch@ucf.edu",
+            "Location": "Engineering Hall, Room 102"
+        },
+        {
+            "EventID": "14",
+            "Title": "Tech Talk",
+            "Description": "AI and the future",
+            "EventTime": "2025-04-24 19:30:00",
+            "EndTime": "2025-04-24 21:00:00",
+            "ContactPhone": "(555) 123-4567",
+            "ContactEmail": "taylor.finch@ucf.edu",
+            "Location": "Engineering Hall 102"
+        }
+    ]
+}
+
+approve_event.php: Takes the user id of the person logged in, makes sure they are a superadmin, takes the event id (get from show approvals)
+Uses that to find the event in public events table and approves it. 
+{
+  "uid": 8,
+  "event_id": 3
+}
+
+Output-
+{
+    "success": true,
+    "message": "Event approved."
+}
+
+create_university.php: user id is the user id of the person logged in. It checks that the person logged in is a superadmin.
+The other's can be text fields the superadmin enters to add a university to the universities table. It also verifies if the 
+domain has .edu in it 
+{
+  "uid": 8,
+  "name": "Northern Tech",
+  "domain": "ntech.edu",
+  "location": "Denver, CO",
+  "number_of_students": 12000,
+  "picture_url": "https://example.com/ntech-campus.jpg"
+}
+
+Output-
+{
+    "success": true,
+    "message": "University created successfully."
+}
