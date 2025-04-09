@@ -127,6 +127,7 @@ get_events.php:
 Output:
 [
     {
+        "event_id": 9,
         "title": "Tech Talk",
         "description": "AI and the future",
         "event_time": "2025-04-03 19:30:00",
@@ -137,6 +138,7 @@ Output:
         "rso_name": "Future Lawyers"
     },
     {
+        "event_id": 10,
         "title": "Innovation Kickoff",
         "description": "A student-led initiative promoting innovation and technology.",
         "event_time": "2025-04-20 15:30:00",

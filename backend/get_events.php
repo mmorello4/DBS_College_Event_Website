@@ -22,7 +22,7 @@ try {
 
     if ($type === "public") {
         $query = "
-            SELECT E.Title, E.Description, E.EventTime, E.EndTime, L.Description AS Location, 
+            SELECT E.EventID, E.Title, E.Description, E.EventTime, E.EndTime, L.Description AS Location, 
                    E.ContactPhone, E.ContactEmail
             FROM Public_Events P
             JOIN Events E ON P.EventID = E.EventID
@@ -35,7 +35,7 @@ try {
 
     elseif ($type === "private") {
         $query = "
-            SELECT E.Title, E.Description, E.EventTime, E.EndTime, L.Description AS Location, 
+            SELECT E.EventID, E.Title, E.Description, E.EventTime, E.EndTime, L.Description AS Location, 
                    E.ContactPhone, E.ContactEmail
             FROM Private_Events P
             JOIN Events E ON P.EventID = E.EventID
@@ -49,7 +49,7 @@ try {
 
     elseif ($type === "rso") {
         $query = "
-            SELECT E.Title, E.Description, E.EventTime, E.EndTime, L.Description AS Location, 
+            SELECT E.EventID, E.Title, E.Description, E.EventTime, E.EndTime, L.Description AS Location, 
                    E.ContactPhone, E.ContactEmail, R.Name AS RSO_Name
             FROM RSO_Members M
             JOIN RSOs R ON M.RSOID = R.RSOID
@@ -68,6 +68,7 @@ try {
 
     while ($row = $result->fetch_assoc()) {
         $event = [
+            "event_id" => $row["EventID"],
             "title" => $row["Title"],
             "description" => $row["Description"],
             "event_time" => $row["EventTime"],
