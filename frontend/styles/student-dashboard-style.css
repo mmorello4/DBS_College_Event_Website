@@ -28,35 +28,43 @@ body {
 
 .section {
     margin-bottom: 30px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.section:last-child {
+    border-bottom: none;
 }
 
 #events-tabs {
-    margin-top: 10px; /* Adjust spacing */
+    margin-top: 10px;
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px; /* Adjust spacing */
+    justify-content: left;
+    margin-bottom: 10px;
 }
 
 #events-tabs button {
-    padding: 8px 15px;  /* Adjust padding */
+    padding: 8px 15px;
+    margin-right: 5px;
     background-color: black;
     color: #e6bd45;
     border: none;
     cursor: pointer;
     font-weight: bold;
     border-radius: 5px;
-    width: 30%;
+    width: 15%;
 }
 
 #events-tabs button:hover {
     background-color: #333;
 }
 
-/* Table Styles */
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 10px;
 }
@@ -90,7 +98,6 @@ td button:hover {
     background-color: #333;
 }
 
-/* "No content" message */
 .no-content-message {
     font-size: 16px;
     color: #555;
@@ -98,7 +105,6 @@ td button:hover {
     font-style: italic;
 }
 
-/* Buttons */
 .create-rso-button, .create-event-button {
     padding: 10px 20px;
     background-color: black;
@@ -107,9 +113,54 @@ td button:hover {
     cursor: pointer;
     font-weight: bold;
     border-radius: 5px;
-    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .create-rso-button:hover, .create-event-button:hover {
     background-color: #333;
+}
+
+.rso-search-container {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.rso-search-container input {
+    padding: 12px;
+    width: 70%;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+}
+
+.rso-search-container button {
+    padding: 12px 20px;
+    background-color: black;
+    color: #e6bd45;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+.rso-search-container button:hover {
+    background-color: #333;
+}
+
+.logout-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.logout-button:hover {
+    background-color: #d32f2f;
 }

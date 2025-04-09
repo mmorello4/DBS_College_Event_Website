@@ -1,12 +1,9 @@
-
-<!-- Below is the same file: login.php (HTML starts here) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>College Event Website</title>
     <link rel="stylesheet" href="../styles/login-style.css">
-    <script src="../scripts/login-script.js"></script>
 </head>
 <body class="mainpage-background">
 
@@ -19,9 +16,10 @@
     <div class="login-container">
         <h2 class="login-text">Log in</h2>
 
-        <?php if (!empty($error)) echo "<p style='color:red;'>$error</p>"; ?>
+        <!-- Error message container (hidden by default) -->
+        <p id="error-message" style="color:red; display:none;"></p>
         
-        <form id="loginForm">
+        <form id="loginForm" onsubmit="event.preventDefault(); loginUser();">
             <label for="email" class="login-label">Email</label>
             <input type="email" id="email" name="email" class="input-field" required>
 
@@ -36,5 +34,63 @@
         </form>
 
     </div>
+
+    <script>
+        // Handle toggling password visibility
+        function togglePassword() {
+            const passwordField = document.getElementById('password');
+            const toggleIcon = document.querySelector('.toggle-password');
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                toggleIcon.textContent = "🙈";
+            } else {
+                passwordField.type = "password";
+                toggleIcon.textContent = "👁";
+            }
+        }
+
+        // Login AJAX function
+        function loginUser() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Prepare data for sending
+            const loginData = {
+                email: email,
+                password: password
+            };
+
+            // Make the AJAX request
+            fetch('../../backend/login.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(loginData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // On success, save user data in localStorage (or sessionStorage)
+                    localStorage.setItem('user_id', data.uid);
+                    localStorage.setItem('role', data.role);
+                    localStorage.setItem('university_id', data.university_id);
+
+                    // Redirect to the dashboard
+                    window.location.href = 'student-dashboard.php';  // Or redirect based on role
+                } else {
+                    // Display error message if login failed
+                    document.getElementById('error-message').textContent = data.error;
+                    document.getElementById('error-message').style.display = 'block';
+                }
+            })
+            .catch(error => {
+                // Handle any errors from the AJAX request
+                document.getElementById('error-message').textContent = "An error occurred. Please try again.";
+                document.getElementById('error-message').style.display = 'block';
+            });
+        }
+    </script>
+
 </body>
 </html>

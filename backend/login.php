@@ -4,12 +4,10 @@ include 'db.php';
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Get raw POST data as JSON
     $input = json_decode(file_get_contents('php://input'), true);
 
-    // Check if the email and password are set
     if (!isset($input['email']) || !isset($input['password'])) {
-        http_response_code(400); // Bad Request
+        http_response_code(400);
         echo json_encode(["error" => "Email and password are required"]);
         exit;
     }
@@ -17,32 +15,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $input['email'];
     $password = $input['password'];
 
-    // Prepare SQL statement to check if the email exists in the database
     $stmt = $conn->prepare("SELECT UID, Password, UniversityID FROM users WHERE Email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
 
-    // Check if no user found with that email
     if ($result->num_rows === 0) {
-        http_response_code(401); // Unauthorized
+        http_response_code(401);
         echo json_encode(["error" => "Invalid email or password"]);
         exit;
     }
 
-    // Get user data from the result
     $user = $result->fetch_assoc();
 
-    // Verify the password
     if (!password_verify($password, $user['Password'])) {
-        http_response_code(401); // Unauthorized
+        http_response_code(401);
         echo json_encode(["error" => "Invalid email or password"]);
         exit;
     }
 
     $uid = $user['UID'];
 
-    // Determine the user role
     $role = 'Student';
     $checkAdmin = $conn->prepare("SELECT * FROM Admins WHERE UID = ?");
     $checkAdmin->bind_param("i", $uid);
@@ -58,16 +51,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $role = 'SuperAdmin';
     }
 
-    // Store session information
-    $_SESSION['uid'] = $uid;
+    $_SESSION['user_id'] = $uid;
     $_SESSION['university_id'] = $user['UniversityID'];
     $_SESSION['role'] = $role;
 
-    // Return a success response
     echo json_encode([
-        "success" => true,  // Include success flag
+        "success" => true,
         "message" => "Login successful",
-        "uid" => $uid,
+        "user_id" => $uid,  // Ensure this is consistent
         "role" => $role,
         "university_id" => $user['UniversityID']
     ]);

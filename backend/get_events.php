@@ -90,9 +90,4 @@ try {
     http_response_code(400);
     echo json_encode(["success" => false, "message" => $e->getMessage()]);
 }
-<<<<<<< HEAD
-
-echo json_encode($events);
-=======
->>>>>>> c9fa928d3e41993020791c191d6fa6d2bc322274
 ?>
