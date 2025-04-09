@@ -169,3 +169,68 @@ Output-
     }
   ]
 }
+
+show_comments.php:
+Note: Put a button where you used to have join event for showing the comments to take to a comments page with a back button. 
+This will return info for the comments. the comment id, uid of person who made the comment, comment text, and the timestamp. 
+Use the comment id and uid for edit and delete comment. You can probably show buttons for edit and delete only if the 
+uid of the comment matches the person who is logged in. 
+
+{
+  "event_id": 3 (id of event you are looking at the comments for)
+}
+Output-
+{
+    "success": true,
+    "comments": [
+        {
+            "CommentID": 1,
+            "UID": 2,
+            "CommentText": "Excited for this event! Hope to meet fellow innovators.",
+            "Timestamp": "2025-04-09 02:19:00"
+        },
+        {
+            "CommentID": 2,
+            "UID": 2,
+            "CommentText": "Excited for this event! Hope to meet fellow innovators.",
+            "Timestamp": "2025-04-09 02:19:05"
+        }
+    ]
+}
+
+add_comment.php:
+{
+  "uid": 2, (user id of person logged in)
+  "event_id": 3, (event the comment is being made in)
+  "comment_text": "Excited for this event! Hope to meet fellow innovators."
+}
+Output-
+{
+    "success": true,
+    "message": "Comment added successfully."
+}
+
+edit_comment.php: edits a comment. use the comment id and user id of the person who is logged in. It is going to compare it
+to the user id of the person who made the comment.
+{
+  "comment_id": 1,
+  "uid": 2,
+  "comment_text": "Can't wait to network with everyone!"
+}
+Output-
+{
+    "success": true,
+    "message": "Comment updated."
+}
+
+delete_comment.php: removes from comment table. use the comment id and user id of the person logged in. It is going to compare it
+to the user id of the person who made the comment.
+{
+  "comment_id": 1,
+  "uid": 2
+}
+Output-
+{
+    "success": true,
+    "message": "Comment deleted."
+}
