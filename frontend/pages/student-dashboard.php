@@ -37,6 +37,8 @@ $user_role = $_SESSION['role'];
             }
         }
 
+
+
         function displayRSOs(data) {
             const rsoContainer = document.getElementById('rso-container');
             rsoContainer.innerHTML = '';
@@ -48,6 +50,7 @@ $user_role = $_SESSION['role'];
                         <tr>
                             <th>RSO Name</th>
                             <th>Description</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody id="rso-table-body">
@@ -60,6 +63,7 @@ $user_role = $_SESSION['role'];
                     rsoRow.innerHTML = `
                         <td>${rso.name}</td>
                         <td>${rso.description}</td>
+                        <td><button onclick="leaveRSO(${rso.rsoid})">Leave</button></td>
                     `;
                     tableBody.appendChild(rsoRow);
                 });
@@ -87,6 +91,28 @@ $user_role = $_SESSION['role'];
             }
         }
 
+        async function leaveRSO(rsoid) {
+            if (confirm("Are you sure you want to leave this RSO?")) {
+                try {
+                    const response = await fetch('../../backend/leave_rso.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ uid: userId, rsoid: rsoid }),
+                    });
+
+                    const data = await response.json();
+                    alert(data.message);
+                    if (data.success) {
+                        fetchRSOs();  // Refresh the RSO list
+                    }
+                } catch (error) {
+                    console.error('Error leaving RSO:', error);
+                }
+            }
+        }
+        
         function displaySearchResults(data) {
             const resultsContainer = document.getElementById('search-results');
             resultsContainer.innerHTML = '';
