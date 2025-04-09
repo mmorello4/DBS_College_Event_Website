@@ -1,3 +1,10 @@
+<?php
+session_start();
+
+$event_id = isset($_GET['event_id']) ? intval($_GET['event_id']) : 0;
+$user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 'null';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,8 +37,35 @@
     <script>
         const eventId = <?php echo $event_id; ?>;
 
+        const userIdFromSession = <?php echo $user_id; ?>;
+        localStorage.setItem('user_id', userIdFromSession); // Sync session to frontend
+
+        async function addComment() {
+            console.log("user_id from localStorage:", localStorage.getItem('user_id'));
+            const commentContent = document.getElementById('comment-input').value;
+            if (!commentContent) return;
+
+            const res = await fetch('../../backend/add_comment.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    event_id: eventId,
+                    uid: parseInt(userId),  // Pass the UID
+                    comment_text: commentContent
+                })
+            });
+
+            const data = await res.json();
+            if (data.success) {
+                document.getElementById('comment-input').value = '';
+                loadComments();
+            } else {
+                alert(data.message || 'Failed to add comment');
+            }
+        }
+
         async function loadComments() {
-            const res = await fetch('../../backend/get_comments.php', {
+            const res = await fetch('../../backend/show_comments.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ event_id: eventId })
@@ -41,15 +75,24 @@
             const container = document.getElementById('comments-container');
             container.innerHTML = '';
 
+            const userId = localStorage.getItem('user_id');
+
             if (data.success && data.comments.length > 0) {
                 data.comments.forEach(comment => {
                     const commentBox = document.createElement('div');
                     commentBox.className = 'comment-box';
+
                     commentBox.innerHTML = `
-                        <h3>${comment.username}</h3>
-                        <p>${comment.content}</p>
-                        <small>${new Date(comment.timestamp).toLocaleString()}</small>
+                        <p>${comment.CommentText}</p>
+                        <small>${new Date(comment.Timestamp).toLocaleString()}</small>
+                        ${parseInt(comment.UID) === parseInt(userId) ? `
+                            <div style="margin-top: 10px;">
+                                <button onclick="editComment(${comment.CommentID}, '${comment.CommentText.replace(/'/g, "\\'")}')">Edit</button>
+                                <button onclick="deleteComment(${comment.CommentID})">Delete</button>
+                            </div>
+                        ` : ''}
                     `;
+
                     container.appendChild(commentBox);
                 });
             } else {
@@ -57,24 +100,48 @@
             }
         }
 
-        async function addComment() {
-            const commentContent = document.getElementById('comment-input').value;
-            if (!commentContent) return;
+        async function editComment(commentId, currentText) {
+            const newText = prompt("Edit your comment:", currentText);
+            if (newText && newText !== currentText) {
+                const res = await fetch('../../backend/edit_comment.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        comment_id: commentId,
+                        uid: parseInt(localStorage.getItem('user_id')),
+                        comment_text: newText
+                    })
+                });
 
-            const res = await fetch('../../backend/add_comment.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ event_id: eventId, content: commentContent })
-            });
-
-            const data = await res.json();
-            if (data.success) {
-                document.getElementById('comment-input').value = '';  // Clear the input
-                loadComments();  // Reload comments to show the new one
-            } else {
-                alert('Failed to add comment');
+                const data = await res.json();
+                if (data.success) {
+                    loadComments();
+                } else {
+                    alert(data.message || 'Failed to update comment');
+                }
             }
         }
+
+        async function deleteComment(commentId) {
+            if (confirm("Are you sure you want to delete this comment?")) {
+                const res = await fetch('../../backend/delete_comment.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        comment_id: commentId,
+                        uid: parseInt(localStorage.getItem('user_id'))
+                    })
+                });
+
+                const data = await res.json();
+                if (data.success) {
+                    loadComments();
+                } else {
+                    alert(data.message || 'Failed to delete comment');
+                }
+            }
+        }
+
 
         window.onload = loadComments;
     </script>

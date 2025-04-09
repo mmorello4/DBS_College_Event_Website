@@ -163,7 +163,7 @@ $user_role = $_SESSION['role'];
         }
         
         function showComments(eventId) {
-            window.location.href = `event-comments-page.php?event_id=${eventId}`;
+            window.location.href = `display-comments.php?event_id=${eventId}`;
         }
 
         function showCreateEventButton() {
