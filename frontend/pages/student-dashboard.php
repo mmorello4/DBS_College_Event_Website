@@ -72,18 +72,13 @@ $user_role = $_SESSION['role'];
 
         async function searchRSOs() {
             const query = document.getElementById('rso-search').value.trim();
-            if (!query) {
-                alert('Please enter a search term!');
-                return;
-            }
-
             try {
-                const response = await fetch('../../backend/search_rso.php', {
+                const response = await fetch('../../backend/get_rsos.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ query: query, uid: userId }),
+                    body: JSON.stringify({ search: query, uid: userId }),
                 });
                 const data = await response.json();
                 displaySearchResults(data);
@@ -103,6 +98,7 @@ $user_role = $_SESSION['role'];
                         <tr>
                             <th>RSO Name</th>
                             <th>Description</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody id="search-table-body">
@@ -110,17 +106,37 @@ $user_role = $_SESSION['role'];
                 `;
                 const tableBody = searchTable.querySelector('#search-table-body');
 
-                const rso = data.rsos[0];
-                const rsoRow = document.createElement('tr');
-                rsoRow.innerHTML = `
-                    <td>${rso.name}</td>
-                    <td>${rso.description}</td>
-                `;
-                tableBody.appendChild(rsoRow);
+                data.rsos.forEach(rso => {
+                    const rsoRow = document.createElement('tr');
+                    rsoRow.innerHTML = `
+                        <td>${rso.name}</td>
+                        <td>${rso.description}</td>
+                        <td><button onclick="joinRSO(${rso.rsoid})">Join</button></td>
+                    `;
+                    tableBody.appendChild(rsoRow);
+
+                });
 
                 resultsContainer.appendChild(searchTable);
             } else {
                 resultsContainer.innerHTML = '<p class="no-content-message">No RSOs found matching your search.</p>';
+            }
+        }
+
+        async function joinRSO(rsoid) {
+            try {
+                const response = await fetch('../../backend/join_rso.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ uid: userId, rsoid: rsoid }),
+                });
+                const data = await response.json();
+                alert(data.message);
+                location.reload();
+            } catch (error) {
+                console.error('Error joining RSO:', error);
             }
         }
 
