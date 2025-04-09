@@ -23,7 +23,7 @@ $user_role = $_SESSION['role'];
 
         async function fetchRSOs() {
             try {
-                const response = await fetch('../../backend/get_rsos.php', {
+                const response = await fetch('../../backend/your_rsos.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
