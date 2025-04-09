@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,6 +17,13 @@
             <div id="comments-container">
                 <p class="no-content-message">Loading comments...</p>
             </div>
+        </div>
+
+        <!-- Add Comment Section -->
+        <div class="add-comment-section">
+            <h3>Add a Comment</h3>
+            <textarea id="comment-input" class="comment-input" placeholder="Write your comment..."></textarea>
+            <button class="add-comment-button" onclick="addComment()">Add Comment</button>
         </div>
     </div>
 
@@ -49,6 +54,25 @@
                 });
             } else {
                 container.innerHTML = '<p class="no-content-message">No comments available for this event.</p>';
+            }
+        }
+
+        async function addComment() {
+            const commentContent = document.getElementById('comment-input').value;
+            if (!commentContent) return;
+
+            const res = await fetch('../../backend/add_comment.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ event_id: eventId, content: commentContent })
+            });
+
+            const data = await res.json();
+            if (data.success) {
+                document.getElementById('comment-input').value = '';  // Clear the input
+                loadComments();  // Reload comments to show the new one
+            } else {
+                alert('Failed to add comment');
             }
         }
 

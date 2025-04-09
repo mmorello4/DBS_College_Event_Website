@@ -81,3 +81,46 @@ body {
 .logout-button:hover {
     background-color: #d32f2f;
 }
+
+/* Add Comment Section */
+.add-comment-section {
+    margin-top: 30px;
+    padding: 15px;
+    background-color: #fafafa;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    max-width: 100%; /* Ensure it fits within the container */
+}
+
+.add-comment-section h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.comment-input {
+    width: 100%; /* Make it span the full width of the parent container */
+    height: 100px; /* Set a static height */
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    resize: none; /* Disable resizing */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    margin-bottom: 10px;
+}
+
+.add-comment-button {
+    padding: 10px 20px;
+    background-color: #e6bd45;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%; /* Make the button span the full width of the parent container */
+}
+
+.add-comment-button:hover {
+    background-color: #e6bd00;
+}
