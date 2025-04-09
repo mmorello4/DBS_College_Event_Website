@@ -37,8 +37,8 @@ $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 'null';
     <script>
         const eventId = <?php echo $event_id; ?>;
 
-        const userIdFromSession = <?php echo $user_id; ?>;
-        localStorage.setItem('user_id', userIdFromSession); // Sync session to frontend
+        const userId = <?php echo $user_id; ?>;
+        localStorage.setItem('user_id', userId); // Sync session to frontend
 
         async function addComment() {
             console.log("user_id from localStorage:", localStorage.getItem('user_id'));
