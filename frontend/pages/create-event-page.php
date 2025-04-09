@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $user_id = $_SESSION['user_id'];  // Retrieve user ID from session
-$user_role = $_SESSION['role'];  // Retrieve user role from session
+$user_role = $_SESSION['role'];   // Retrieve user role from session
 ?>
 
 <!DOCTYPE html>
@@ -16,13 +16,19 @@ $user_role = $_SESSION['role'];  // Retrieve user role from session
 <head>
     <meta charset="UTF-8">
     <title>Create Event</title>
+    <!-- Link the same stylesheet as your Create University page -->
     <link rel="stylesheet" href="../styles/create-event-style.css">
 </head>
-<body>
+<body class="mainpage-background">
+    <!-- Header container -->
+    <div class="header-container">
+        <h1 class="header-text">Create Event</h1>
+        <button class="back-button" onclick="window.location.href='student-dashboard.php'">Back to Dashboard</button>
+    </div>
+
+    <!-- Main container -->
     <div class="container">
-        <h1>Create an Event</h1>
-        
-        <!-- Response message -->
+        <!-- Optional response message -->
         <div id="response-message" style="margin-top: 15px; font-weight: bold;"></div>
 
         <!-- Event Creation Form -->
@@ -46,6 +52,7 @@ $user_role = $_SESSION['role'];  // Retrieve user role from session
                 <input type="text" name="rso_name" id="rso_name">
             </div>
 
+            <!-- Start and End Date in one horizontal flex container -->
             <div class="flex-container">
                 <div>
                     <label for="event_date">Start Date</label>
@@ -57,6 +64,7 @@ $user_role = $_SESSION['role'];  // Retrieve user role from session
                 </div>
             </div>
 
+            <!-- Start and End Time in one horizontal flex container -->
             <div class="flex-container">
                 <div>
                     <label for="event_time">Start Time</label>
@@ -89,6 +97,7 @@ $user_role = $_SESSION['role'];  // Retrieve user role from session
     </div>
 
     <script>
+        // Event form submission with fetch to backend
         document.getElementById('create-event-form').addEventListener('submit', async function (e) {
             e.preventDefault();
 
@@ -121,9 +130,7 @@ $user_role = $_SESSION['role'];  // Retrieve user role from session
             try {
                 const response = await fetch('../../backend/create_event.php', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
                 });
 
@@ -135,11 +142,10 @@ $user_role = $_SESSION['role'];  // Retrieve user role from session
                     messageBox.textContent = result.message;
                     document.getElementById('create-event-form').reset();
 
-                    // Redirect to the dashboard after successful creation
+                    // Redirect after a short delay (2 seconds)
                     setTimeout(() => {
-                        // Redirect to the student dashboard
                         window.location.href = '../pages/student-dashboard.php';
-                    }, 2000);  // Delay for 2 seconds to show the success message
+                    }, 2000);
                 } else {
                     messageBox.style.color = 'red';
                     messageBox.textContent = result.message;
