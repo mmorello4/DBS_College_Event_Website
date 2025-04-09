@@ -67,6 +67,7 @@ CREATE TABLE Events (
     Title VARCHAR(255) NOT NULL,
     Description TEXT,
     EventTime DATETIME NOT NULL,
+    EndTime DATETIME NOT NULL,
     LocationID INT,
     ContactPhone VARCHAR(20),
     ContactEmail VARCHAR(191),
@@ -149,12 +150,16 @@ BEGIN
 
     SELECT COUNT(*) INTO conflict_count
     FROM Events
-    WHERE EventTime = NEW.EventTime
-      AND LocationID = NEW.LocationID;
+    WHERE LocationID = NEW.LocationID
+      AND (
+            (NEW.EventTime BETWEEN EventTime AND EndTime) OR
+            (NEW.EndTime BETWEEN EventTime AND EndTime) OR
+            (EventTime BETWEEN NEW.EventTime AND NEW.EndTime)
+          );
 
     IF conflict_count > 0 THEN
         SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error: An event already exists at this location and time.';
+        SET MESSAGE_TEXT = 'Error: An event already exists at this location during this time range.';
     END IF;
 END;
 //
