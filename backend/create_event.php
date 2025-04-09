@@ -1,10 +1,11 @@
 <?php
-include 'db.php';
 header("Content-Type: application/json");
+
+include 'db.php';
 
 $data = json_decode(file_get_contents("php://input"), true);
 
-// Extract and sanitize input
+// Extract the data from the POST body
 $title = $data["Event_Name"];
 $description = $data["Event_Description"];
 $type = $data["Type"];
@@ -19,7 +20,6 @@ $created_by = $data["User_ID"];
 // Combine date and time to MySQL DATETIME
 $event_time = date("Y-m-d H:i:s", strtotime($date . " " . $time));
 $end_time = date("Y-m-d H:i:s", strtotime($data["End_Date"] . " " . $data["End_Time"]));
-
 
 $conn->begin_transaction();
 
@@ -44,7 +44,7 @@ try {
         $stmt->close();
     }
 
-    // 2. Permission check
+    // 2. Permission check for event type
     if ($type === "RSO") {
         if (!$rso_name) throw new Exception("RSO name is required for RSO events.");
         $stmt = $conn->prepare("SELECT RSOID, CreatedBy FROM RSOs WHERE Name = ?");
@@ -53,7 +53,7 @@ try {
         $stmt->bind_result($rso_id, $rso_creator);
         if (!$stmt->fetch()) throw new Exception("RSO not found.");
         if ($rso_creator != $created_by) {
-            $stmt->close();  
+            $stmt->close();
             throw new Exception("Only the RSO creator can create events for this RSO.");
         }
         $stmt->close();
@@ -68,16 +68,14 @@ try {
     }
 
     // 3. Insert event into Events table
-    $stmt = $conn->prepare("
-        INSERT INTO Events (Title, Description, EventTime, EndTime, LocationID, ContactPhone, ContactEmail, CreatedBy, CategoryID)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, NULL)
-    ");
+    $stmt = $conn->prepare("INSERT INTO Events (Title, Description, EventTime, EndTime, LocationID, ContactPhone, ContactEmail, CreatedBy, CategoryID)
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, NULL)");
     $stmt->bind_param("ssssissi", $title, $description, $event_time, $end_time, $location_id, $contact_phone, $contact_email, $created_by);
     $stmt->execute();
     $event_id = $stmt->insert_id;
     $stmt->close();
 
-    // 4. Insert into subtype table
+    // 4. Insert into subtype table (RSO, Private, Public)
     if ($type === "RSO") {
         $stmt = $conn->prepare("INSERT INTO RSO_Events (EventID, RSOID) VALUES (?, ?)");
         $stmt->bind_param("ii", $event_id, $rso_id);

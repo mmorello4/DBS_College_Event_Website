@@ -88,8 +88,8 @@ Output:
 
 join_rso.php
 {
-  "uid": 6,
-  "rsoid": 8
+  "uid": 6, (user id)
+  "rsoid": 8 (id of rso in rsos table)
 }
 Output-
 {
@@ -117,3 +117,33 @@ create_event.php:
     "message": "Event created successfully."
 }
 - Make sure to show the user the error if success was false. The message will say the error
+
+get_events.php:
+{
+  "type": "RSO",  (Can be "Public" or "Private" as well)
+  "uid": 2 (User id from login)
+}
+
+Output:
+[
+    {
+        "title": "Tech Talk",
+        "description": "AI and the future",
+        "event_time": "2025-04-03 19:30:00",
+        "end_time": "2025-04-03 21:00:00",
+        "location": "Engineering Hall 102",
+        "contact_phone": "(555) 123-4567",
+        "contact_email": "taylor.finch@ucf.edu",
+        "rso_name": "Future Lawyers"
+    },
+    {
+        "title": "Innovation Kickoff",
+        "description": "A student-led initiative promoting innovation and technology.",
+        "event_time": "2025-04-20 15:30:00",
+        "end_time": "0000-00-00 00:00:00",
+        "location": "Engineering Hall, Room 102",
+        "contact_phone": "(407) 123-4567",
+        "contact_email": "taylor.finch@ucf.edu",
+        "rso_name": "Future Innovators"
+    }
+]

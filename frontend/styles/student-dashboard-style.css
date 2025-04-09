@@ -1,3 +1,4 @@
+/* General Styles */
 body {
     background-color: #e6bd45;
     font-family: Arial, sans-serif;
@@ -29,103 +30,53 @@ body {
     margin-bottom: 30px;
 }
 
-.search-bar {
+#events-tabs {
+    margin-top: 10px; /* Adjust spacing */
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 20px;
+    justify-content: space-between;
+    margin-bottom: 10px; /* Adjust spacing */
 }
 
-.search-label {
-    font-size: 16px;
+#events-tabs button {
+    padding: 8px 15px;  /* Adjust padding */
+    background-color: black;
+    color: #e6bd45;
+    border: none;
+    cursor: pointer;
     font-weight: bold;
-    color: black;
+    border-radius: 5px;
+    width: 30%;
 }
 
-.input-field {
+#events-tabs button:hover {
+    background-color: #333;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+th, td {
     padding: 12px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+    text-align: left;
 }
 
-.button-group {
-    display: flex;
-    gap: 10px;
-    justify-content: flex-start;
-}
-
-.search-button, .clear-button {
-    padding: 8px 15px;
-    background-color: black;
-    color: #e6bd45;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-    border-radius: 5px;
-    width: 100px;
-}
-
-.search-button:hover, .clear-button:hover {
-    background-color: #333;
-}
-
-.search-results {
-    margin-top: 10px;
-    padding: 10px;
+th {
     background-color: #f4f4f4;
-    border-radius: 8px;
-}
-
-.search-result {
-    margin-bottom: 10px;
-}
-
-.search-result button {
-    padding: 5px 10px;
-    background-color: black;
-    color: #e6bd45;
-    border: none;
-    cursor: pointer;
     font-weight: bold;
-    border-radius: 5px;
+    border-bottom: 2px solid #ccc;
 }
 
-.search-result button:hover {
-    background-color: #333;
+td {
+    border-bottom: 1px solid #ddd;
 }
 
-.rso-section {
-    margin-bottom: 30px;
-    padding: 15px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-}
-
-.rso-section h3 {
-    margin-bottom: 15px;
-    font-size: 1.5em;
-}
-
-.event {
-    margin-bottom: 15px;
-}
-
-.contact-info {
-    font-style: italic;
-    color: #555;
-}
-
-@media (max-width: 600px) {
-    .search-bar {
-        flex-direction: column;
-    }
-
-    .input-field, .search-button, .clear-button {
-        width: 100%;
-    }
-}
-.join-button {
+td button {
     padding: 8px 16px;
     background-color: black;
     color: #e6bd45;
@@ -133,30 +84,22 @@ body {
     cursor: pointer;
     font-weight: bold;
     border-radius: 5px;
-    margin-top: 10px;
 }
 
-.join-button:disabled {
-    background-color: #d3d3d3;
-    cursor: not-allowed;
-}
-
-.create-rso-button {
-    padding: 10px 20px;
-    background-color: black;
-    color: #e6bd45;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-    border-radius: 5px;
-    margin-top: 10px;
-}
-
-.create-rso-button:hover {
+td button:hover {
     background-color: #333;
 }
 
-.create-event-button {
+/* "No content" message */
+.no-content-message {
+    font-size: 16px;
+    color: #555;
+    text-align: center;
+    font-style: italic;
+}
+
+/* Buttons */
+.create-rso-button, .create-event-button {
     padding: 10px 20px;
     background-color: black;
     color: #e6bd45;
@@ -167,6 +110,6 @@ body {
     margin-top: 10px;
 }
 
-.create-event-button:hover {
+.create-rso-button:hover, .create-event-button:hover {
     background-color: #333;
 }

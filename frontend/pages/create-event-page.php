@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,11 +9,11 @@
     <div class="container">
         <h1>Create an Event</h1>
         
-        <?php if (isset($error_message)): ?>
-            <p class="error"><?= $error_message ?></p>
-        <?php endif; ?>
+        <!-- Response message -->
+        <div id="response-message" style="margin-top: 15px; font-weight: bold;"></div>
 
-        <form method="POST">
+        <!-- Event Creation Form -->
+        <form id="create-event-form">
             <div>
                 <label for="event_name">Event Name</label>
                 <input type="text" name="event_name" id="event_name" required>
@@ -36,12 +35,23 @@
 
             <div class="flex-container">
                 <div>
-                    <label for="event_date">Date</label>
+                    <label for="event_date">Start Date</label>
                     <input type="date" name="event_date" id="event_date" required>
                 </div>
                 <div>
-                    <label for="event_time">Time</label>
+                    <label for="event_end_date">End Date</label>
+                    <input type="date" name="event_end_date" id="event_end_date" required>
+                </div>
+            </div>
+
+            <div class="flex-container">
+                <div>
+                    <label for="event_time">Start Time</label>
                     <input type="time" name="event_time" id="event_time" required>
+                </div>
+                <div>
+                    <label for="event_end_time">End Time</label>
+                    <input type="time" name="event_end_time" id="event_end_time" required>
                 </div>
             </div>
 
@@ -64,5 +74,63 @@
             <button type="submit" class="btn">Create Event</button>
         </form>
     </div>
+
+    <script>
+        document.getElementById('create-event-form').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            // Collect form data
+            const event_name = document.getElementById('event_name').value;
+            const event_type = document.getElementById('event_type').value;
+            const rso_name = document.getElementById('rso_name').value;
+            const event_date = document.getElementById('event_date').value;
+            const event_end_date = document.getElementById('event_end_date').value;
+            const event_time = document.getElementById('event_time').value;
+            const event_end_time = document.getElementById('event_end_time').value;
+            const event_location = document.getElementById('event_location').value;
+            const contact_phone = document.getElementById('contact_phone').value;
+            const contact_email = document.getElementById('contact_email').value;
+
+            const data = {
+                Event_Name: event_name,
+                Event_Description: '',  // You can add a description field if needed
+                Type: event_type,
+                RSO: rso_name,
+                Date: event_date,
+                Time: event_time,
+                End_Date: event_end_date,
+                End_Time: event_end_time,
+                Location: event_location,
+                Contact_Phone: contact_phone,
+                Contact_Email: contact_email,
+                User_ID: 2 // Replace with the logged-in user's ID
+            };
+
+            try {
+                const response = await fetch('../../backend/create_event.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+                const messageBox = document.getElementById('response-message');
+
+                if (result.success) {
+                    messageBox.style.color = 'green';
+                    messageBox.textContent = result.message;
+                    document.getElementById('create-event-form').reset();
+                } else {
+                    messageBox.style.color = 'red';
+                    messageBox.textContent = result.message;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('response-message').textContent = 'An error occurred. Please try again.';
+            }
+        });
+    </script>
 </body>
 </html>

@@ -8,9 +8,22 @@ $data = json_decode(file_get_contents("php://input"), true);
 
 $name = $data["name"];
 $description = $data["description"];
-$university_id = $data["university_id"];
+$university_name = $data["university_name"];
 $admin_email = $data["admin_email"];
 $member_emails = $data["member_emails"];
+
+// Resolve university name to ID
+$stmt = $conn->prepare("SELECT UniversityID FROM Universities WHERE Name = ?");
+$stmt->bind_param("s", $university_name);
+$stmt->execute();
+$stmt->bind_result($university_id);
+
+if (!$stmt->fetch()) {
+    echo json_encode(["success" => false, "message" => "University name not found in the database."]);
+    exit;
+}
+$stmt->close();
+
 
 
 // 1. Get UID of admin
